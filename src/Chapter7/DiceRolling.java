@@ -16,6 +16,8 @@ public class DiceRolling {
         Random random = new Random();
         int[] tally = new int[13];
 
+       // throw new IllegalArgumentException()
+
         for (int rollDie = 1; rollDie <= 36_000_000; rollDie++) {
             int face1 = 1 + random.nextInt(6);
             int face2 = 1 + random.nextInt(6);

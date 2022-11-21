@@ -1,9 +1,6 @@
 package ClassActivity;
 
-import java.util.Scanner;
-
 public class Calculator {
-private Scanner scanner;
 
     public int addTwoNumbers(int num1, int num2) {
         return num1 + num2;
@@ -20,20 +17,32 @@ private Scanner scanner;
     public int multiplyTwoNumbers(int num1, int num2) {
         return num1 * num2;
     }
-//    public int addUserInput(int input1, int input2,int input3) {
-//        //if (input1 <= 0 || input2 <=0 || input3 <=0){
-////        System.out.printf("%s%n","Invalid input");
-////        }
-////        int result = input1 + input2 + input3;
-////        return  result;
-//if (input1 <= 0) {
-//            System.out.println(input1 + " :This input is too less!!!");
-//        } else if (input2 <= 0) {
-//            System.out.println("Ahh, wetin happun?");
-//        } else if (input3 <= 0) {
-//            System.out.println("I give up!!, God abegggg");
-//        }
-//        return input1 + input2 + input3;
-//    }
-}
 
+    public long factorialOf(int number) {
+        long factor = 1;
+        if (number == 1 || number == 0) return 1;
+        else if (number > 1) {
+            for (; number >= 1; number--) {
+                factor *= number;
+            }
+        }
+        else System.out.println("Please enter a non-negative number!");
+        return factor;
+    }
+
+    public double valueOfE(int number) {
+        double e = 1;
+        for (int i = 1; i < number; i++) {
+            e += (1 / (double) i);
+        }
+        return e;
+    }
+
+    public double valueOfERacedToPowerX(int number) {
+        double e = 1;
+        for (int i = 1; i < number; i++) {
+            e += Math.pow(number, i) / factorialOf(i);
+        }
+        return e;
+    }
+}

@@ -12,17 +12,15 @@ public class Factorial {
         int factor = 1;
 
         if (number == 0) {
-            System.out.println("The factorial of zero is 1");
+            System.out.println("The factorial of zero is 1!");
         } else if (number == 1) {
-            System.out.println("The factorial of 1 is 1");
+            System.out.println("The factorial of 1 is 1!");
         } else if (number > 1) {
-
-            for (int number1 = 1; number1 <= number; number1++) {
-                factor = factor * number1;
+            for (int temp = number; temp >= 1; temp--) {
+                factor = factor * temp;
             }
-
-            System.out.printf("The factorial of %d is %d.", number, factor);
-
+            System.out.printf("The factorial of %d is %d!", number, factor);
         }
+        else System.out.println("Please enter a non-negative number!");
     }
 }

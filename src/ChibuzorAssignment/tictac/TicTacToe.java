@@ -1,10 +1,11 @@
-package ChibuzorAssignment;
+package ChibuzorAssignment.tictac;
 
 import java.util.Arrays;
 
 public class TicTacToe {
 
-    private Player[] players = new Player[2];
+    private final Player[] players = new Player[2];
+    private Player currentPlayer;
 
     private final String[][] board = new String[3][3];
     private int playingCount;
@@ -12,6 +13,7 @@ public class TicTacToe {
     public TicTacToe(Player player1, Player player2) {
         this.players[0] = player1;
         this.players[1] = player2;
+        currentPlayer = player1;
         for (int i = 0; i < 3; i++) {
             Arrays.fill(board[i]," ");
         }
@@ -54,11 +56,18 @@ public class TicTacToe {
         return playOn;
     }
 
-    public String play(Player player, int position) {
+    public String play(int position) {
         int[] positionIndex = getPosition(position);
         if (canPlayPosition(positionIndex)) {
-            board[positionIndex[0]][positionIndex[1]] = player.getCharacter();
+            board[positionIndex[0]][positionIndex[1]] = currentPlayer.getCharacter();
             playingCount++;
+            currentPlayer.addPosition(position);
+            printTable();
+            if (players[0].equals(currentPlayer)) {
+                currentPlayer = players[1];
+            } else if (players[1].equals(currentPlayer)) {
+                currentPlayer = players[0];
+            }
             return "1";
         }
         else {
@@ -108,6 +117,18 @@ public class TicTacToe {
     }
 
     private boolean canPlayPosition(int[] positionIndex) {
-        return board[positionIndex[0]][positionIndex[1]].equals(" ");
+        boolean canPlay = false;
+        if (board[positionIndex[0]][positionIndex[1]].equals(" ")) {
+
+        }
+        return canPlay;
+    }
+
+    public String getNextPlayerName() {
+        return currentPlayer.getName();
+    }
+
+    public Player checkWinner() {
+        return players[0];
     }
 }

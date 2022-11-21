@@ -17,9 +17,87 @@ package Chapter7;
 //section (and vice versa). If yes, make the appropriate seat assignment. If no, display the message
 //"Next flight leaves in 3 hours."
 
+import java.util.Arrays;
+import java.util.Scanner;
+
 public class AirlineReservations {
+    private static int firstClassSeat = 0;
+    private static int economySeat = 5;
+    private static final Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
+        boolean[] occupy = new boolean[10];
+        int[] seatNo = new int[11];
+        Arrays.fill(occupy, false);
 
+        for (int counter = 0; counter < 5; counter++) {
+            seatNo[counter] = counter;
+        }
+
+        for (int counter = 5; counter < 11; counter++) {
+            seatNo[counter] = counter;
+        }
+
+        for (int seat = 0; seat < 12; seat++) {
+            System.out.print("Enter 1 for First class or Enter 2 for Economy: ");
+            int seatClass = input.nextInt();
+
+            switch (seatClass) {
+                case 1 -> firstClass(occupy, seatNo);
+                case 2 -> economy(occupy, seatNo);
+            }
+        }
+    }
+
+    private static void economy(boolean[] inSeat, int[] seatNo) {
+        if (economySeat + firstClassSeat < 15) {
+            if (economySeat < 10) {
+                inSeat[economySeat] = true;
+                System.out.printf("You have been assigned seat %d in economy class.%n", seatNo[economySeat + 1]);
+                economySeat++;
+            } else {
+                System.out.println("Economy is full! \nWould you like to be placed in FirstClass");
+                System.out.println("Enter 1 for yes and 2 for no: ");
+                int answer = input.nextInt();
+                System.out.println();
+
+                if (answer == 1) {
+                    firstClass(inSeat, seatNo);
+                    System.out.println();
+                } else {
+                    System.out.println("Next flight leaves in 3 hours!");
+                }
+            }
+        }
+        else {
+            System.out.println("No more available spaces.\nNext flight leaves in 3 hours!");
+            System.out.println();
+        }
+    }
+
+    public static void firstClass(boolean[] inSeat, int[] seatNo) {
+        if (economySeat + firstClassSeat < 15) {
+            if (firstClassSeat < 5) {
+                inSeat[firstClassSeat] = true;
+                System.out.printf("You have been assigned seat %d in first class.%n", seatNo[firstClassSeat + 1]);
+                firstClassSeat++;
+            } else {
+                System.out.println("First class is full! \nWould you like to be placed in Economy section? ");
+                System.out.println("Enter 1 for yes and 2 for no: ");
+                int answer = input.nextInt();
+                System.out.println();
+
+                if (answer == 1) {
+                    economy(inSeat, seatNo);
+                    System.out.println();
+                } else {
+                    System.out.println("Next flight leaves in 3 hours!");
+                }
+            }
+        }
+        else {
+            System.out.println("No more available spaces.\nNext flight leaves in 3 hours!");
+        }
     }
 }
+

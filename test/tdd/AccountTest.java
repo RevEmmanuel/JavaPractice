@@ -30,7 +30,7 @@ public class AccountTest {
     }
 
     @Test
-    public void withdrawMoneyffTest() {
+    public void withdrawMoneyTest() {
         // (pre-condition) given i have an account
         // and given that my balance is 15000
         Account adeolaAccount = new Account();

@@ -1,2 +1,6 @@
-package Chapter9.design;public interface Flyable {
+package Chapter9.design;
+
+public interface Flyable {
+
+    void fly();
 }

@@ -33,13 +33,24 @@ class CalculatorTest {
     void divide(){
         assertEquals(20,calculator.divideTwoNumbers(40,2));
     }
+
     @Test
     void multiply(){
         assertEquals(30,calculator.multiplyTwoNumbers(5,6));
     }
-//    @Test
-//    void testUserCanNotInputANegativeInteger(){
-//        assertEquals(22,calculator.addUserInput(-5,15,2));
-//    }
 
+    @Test
+    void factorial() {
+        assertEquals(120, calculator.factorialOf(5));
+    }
+
+    @Test
+    void factorialOfZero() {
+        assertEquals(1, calculator.factorialOf(0));
+    }
+
+    @Test
+    void factorialOfOne() {
+        assertEquals(1, calculator.factorialOf(1));
+    }
 }

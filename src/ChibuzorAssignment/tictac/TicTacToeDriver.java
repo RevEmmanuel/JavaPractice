@@ -1,4 +1,4 @@
-package ChibuzorAssignment;
+package ChibuzorAssignment.tictac;
 
 import java.util.Scanner;
 
@@ -25,26 +25,26 @@ public class TicTacToeDriver {
         newGame.printTable();
 
         while (newGame.canPlay()) {
-            System.out.printf("%s, please pick a play position from 1 - 9: ", player1.getName());
+            System.out.printf("%s, please pick a play position from 1 - 9: ", newGame.getNextPlayerName());
             int position = input.nextInt();
-            String haveIPlayed = newGame.play(player1, position);
+            String haveIPlayed = newGame.play(position);
 
             while (haveIPlayed.equals("0")) {
+                System.out.println("Invalid input.");
                 System.out.printf("%s, please pick a play position from 1 - 9: ", player1.getName());
                 position = input.nextInt();
-                haveIPlayed = newGame.play(player1, position);
+                haveIPlayed = newGame.play(position);
             }
-            newGame.printTable();
 
-            System.out.printf("%s, please pick a play position from 1 - 9: ", player2.getName());
+            System.out.printf("%s, please pick a play position from 1 - 9: ", newGame.getNextPlayerName());
             position = input.nextInt();
-            haveIPlayed = newGame.play(player2, position);
+            haveIPlayed = newGame.play(position);
             while (haveIPlayed.equals("0")) {
-                System.out.printf("%s, please pick a play position from 1 - 9: ", player2.getName());
+                System.out.println("Invalid input.");
+                System.out.printf("%s, please pick a play position from 1 - 9: ", newGame.getNextPlayerName());
                 position = input.nextInt();
-                haveIPlayed = newGame.play(player2, position);
+                haveIPlayed = newGame.play(position);
             }
-            newGame.printTable();
         }
     }
 

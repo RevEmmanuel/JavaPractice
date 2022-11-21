@@ -1,2 +1,5 @@
-package ticTacToe;public enum Cards {
+package ticTacToe;
+
+public enum Cards {
+    X, O;
 }
