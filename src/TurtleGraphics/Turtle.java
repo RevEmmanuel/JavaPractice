@@ -80,6 +80,8 @@ public class Turtle {
         }
     }
 
+
+
     public Direction getCurrentDirection() {
         return currentDirection;
     }

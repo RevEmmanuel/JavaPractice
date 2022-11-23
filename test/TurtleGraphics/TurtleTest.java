@@ -107,22 +107,46 @@ class TurtleTest {
 
     @Test
     public void turtleCanMoveForwardWhileFacingEastTest() {
-        assertEquals(new Position(0, 0), tortoise.getCurrentPosition());
-//
-//        int numberOfSteps = 10;
-//        tortoise.moveSteps(numberOfSteps);
-//        assertEquals(new Position(0, 10), tortoise.getCurrentPosition());
-//        tortoise.turnRight();
-//        assertEquals(SOUTH, tortoise.getCurrentDirection());
-//        tortoise.moveSteps(numberOfSteps);
-//        assertEquals(new Position(10, 10), tortoise.getCurrentPosition());
-//        tortoise.turnRight();
-//        tortoise.moveSteps(numberOfSteps);
-//        assertEquals(new Position(10, 0), tortoise.getCurrentPosition());
-//        tortoise.turnRight();
-//        tortoise.moveSteps(numberOfSteps);
-//        assertEquals(new Position(0, 0), tortoise.getCurrentPosition());
-//        tortoise.display();
+        int numberOfSteps = 10;
+        assertEquals(EAST, tortoise.getCurrentDirection());
+        tortoise.moveSteps(numberOfSteps);
+        assertEquals(new Position(0, 10), tortoise.getCurrentPosition());
+    }
+
+    @Test
+    public void turtleCanMoveForwardWhileFacingSouthTest() {
+        int numberOfSteps = 10;
+        tortoise.turnRight();
+        assertEquals(SOUTH, tortoise.getCurrentDirection());
+        tortoise.moveSteps(numberOfSteps);
+        assertEquals(new Position(10, 0), tortoise.getCurrentPosition());
+    }
+
+    @Test
+    public void turtleCanMoveForwardWhileFacingWestTest() {
+        int numberOfSteps = 10;
+        tortoise.moveSteps(numberOfSteps);
+        tortoise.turnRight();
+        tortoise.turnRight();
+        assertEquals(WEST, tortoise.getCurrentDirection());
+        tortoise.moveSteps(5);
+        assertEquals(new Position(0, 5), tortoise.getCurrentPosition());
+    }
+
+    @Test
+    public void turtleCanMoveForwardWhileFacingNorthTest() {
+        int numberOfSteps = 10;
+        tortoise.turnRight();
+        tortoise.moveSteps(numberOfSteps);
+        tortoise.turnRight();
+        tortoise.turnRight();
+        assertEquals(NORTH, tortoise.getCurrentDirection());
+        tortoise.moveSteps(5);
+        assertEquals(new Position(5, 0), tortoise.getCurrentPosition());
+    }
+
+    @Test
+    void turtleCanCollectManyCommandsTest() {
         tortoise.move(2, 5, 12, 3, 5, 12, 3, 5, 12, 3, 5, 12, 1, 6, 9);
     }
 }
