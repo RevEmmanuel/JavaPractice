@@ -8,7 +8,6 @@ public class Player {
     private final int id;
     private final String name;
     private final String character;
-
     private String position;
 
     public Player(String name) {

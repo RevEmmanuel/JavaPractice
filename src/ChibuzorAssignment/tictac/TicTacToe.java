@@ -5,14 +5,18 @@ import java.util.Arrays;
 public class TicTacToe {
 
     private final Player[] players = new Player[2];
+    private Player winner;
+    private String winnerCharacter;
     private Player currentPlayer;
-
     private final String[][] board = new String[3][3];
     private int playingCount;
+    private final int[][] winnerPossibility = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {1, 4, 7}, {2, 5, 8}, {3, 6, 9}, {1, 5, 9}, {3, 5, 7}};
 
     public TicTacToe(Player player1, Player player2) {
         this.players[0] = player1;
         this.players[1] = player2;
+        winner = null;
+        winnerCharacter = "";
         currentPlayer = player1;
         for (int i = 0; i < 3; i++) {
             Arrays.fill(board[i]," ");
@@ -63,17 +67,28 @@ public class TicTacToe {
             playingCount++;
             currentPlayer.addPosition(position);
             printTable();
-            if (players[0].equals(currentPlayer)) {
-                currentPlayer = players[1];
-            } else if (players[1].equals(currentPlayer)) {
-                currentPlayer = players[0];
-            }
+            checkForWinnerCharacter();
+            checkWinner();
+            getNextPlayer();
             return "1";
         }
         else {
             System.out.println("Position already played. Pick another position");
             return "0";
         }
+    }
+
+    private void getNextPlayer() {
+        if (players[0].equals(currentPlayer)) {
+            currentPlayer = players[1];
+        } else if (players[1].equals(currentPlayer)) {
+            currentPlayer = players[0];
+        }
+    }
+
+    private String getPositionContent(int position) {
+        int[] index = getPosition(position);
+        return board[index[0]][index[1]];
     }
 
     private int[] getPosition(int position) {
@@ -83,15 +98,9 @@ public class TicTacToe {
             switch (position) {
                 case 1 -> {
                 }
-                case 2 -> {
-                    b = 1;
-                }
-                case 3 -> {
-                    b = 2;
-                }
-                case 4 -> {
-                    a = 1;
-                }
+                case 2 -> b = 1;
+                case 3 -> b = 2;
+                case 4 -> a = 1;
                 case 5 -> {
                     a = 1;
                     b = 1;
@@ -100,9 +109,7 @@ public class TicTacToe {
                     a = 1;
                     b = 2;
                 }
-                case 7 -> {
-                    a = 2;
-                }
+                case 7 -> a = 2;
                 case 8 -> {
                     a = 2;
                     b = 1;
@@ -117,18 +124,50 @@ public class TicTacToe {
     }
 
     private boolean canPlayPosition(int[] positionIndex) {
-        boolean canPlay = false;
-        if (board[positionIndex[0]][positionIndex[1]].equals(" ")) {
-
-        }
-        return canPlay;
+        return board[positionIndex[0]][positionIndex[1]].equals(" ");
     }
 
     public String getNextPlayerName() {
         return currentPlayer.getName();
     }
 
-    public Player checkWinner() {
-        return players[0];
+    public boolean isGameWon(){
+        return winner == null;
     }
+
+    private void checkForWinnerCharacter(){
+        for(int[] possibility : winnerPossibility){
+            if (
+                    !canPlayPosition(getPosition(possibility[0]))
+                            && getPositionContent(possibility[0]).equals(getPositionContent(possibility[1])) &&
+                            getPositionContent(possibility[1]).equals(getPositionContent(possibility[2]))
+            ){
+                winnerCharacter = getPositionContent(possibility[0]);
+                break;
+            }
+        }
+    }
+
+    private void checkWinner() {
+        if (winnerCharacter.equalsIgnoreCase(players[0].getCharacter())) {
+            winner = players[0];
+        }
+        else {
+            if (winnerCharacter.equalsIgnoreCase(players[1].getCharacter())) {
+                winner = players[1];
+            }
+        }
+    }
+
+    private Player getWinner(){
+        return winner;
+    }
+
+    public void printResult() {
+        if (!isGameWon()){
+            System.out.printf("%s wins!%n", winner.getName());
+            System.out.println(" ❌  ❌  ❌ GAME OVER!  ❌  ❌  ❌ ");
+        }
+    }
+
 }

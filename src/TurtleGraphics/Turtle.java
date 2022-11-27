@@ -80,8 +80,6 @@ public class Turtle {
         }
     }
 
-
-
     public Direction getCurrentDirection() {
         return currentDirection;
     }
@@ -104,10 +102,6 @@ public class Turtle {
         }
     }
 
-    private void face(Direction newDirection) {
-        currentDirection = newDirection;
-    }
-
     public void display() {
         for (int[] sketch: sketchPad) {
             for (int aSketch : sketch) {
@@ -120,6 +114,10 @@ public class Turtle {
 
     public Position getCurrentPosition() {
         return currentPosition;
+    }
+
+    private void face(Direction newDirection) {
+        currentDirection = newDirection;
     }
 
 }

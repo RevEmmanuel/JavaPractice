@@ -24,10 +24,18 @@ public class TicTacToeDriver {
         System.out.println("Welcome to TicTacToe!");
         newGame.printTable();
 
-        while (newGame.canPlay()) {
+        while (newGame.canPlay() && newGame.isGameWon()) {
+            if (!newGame.isGameWon()) {
+                newGame.printResult();
+                break;
+            }
             System.out.printf("%s, please pick a play position from 1 - 9: ", newGame.getNextPlayerName());
             int position = input.nextInt();
             String haveIPlayed = newGame.play(position);
+            if (!newGame.isGameWon()) {
+                newGame.printResult();
+                break;
+            }
 
             while (haveIPlayed.equals("0")) {
                 System.out.println("Invalid input.");
@@ -39,6 +47,10 @@ public class TicTacToeDriver {
             System.out.printf("%s, please pick a play position from 1 - 9: ", newGame.getNextPlayerName());
             position = input.nextInt();
             haveIPlayed = newGame.play(position);
+            if (!newGame.isGameWon()) {
+                newGame.printResult();
+                break;
+            }
             while (haveIPlayed.equals("0")) {
                 System.out.println("Invalid input.");
                 System.out.printf("%s, please pick a play position from 1 - 9: ", newGame.getNextPlayerName());
