@@ -4,18 +4,18 @@ import java.util.Arrays;
 
 public class HugeInteger {
 
-    private int[] digits = new int[40];
+    private final int[] digits = new int[40];
     private int length;
     private int startCount;
 
     public void parse(String numbers) {
         validateInput(numbers);
-        int counter = 39;
+        int counter = 40;
         for (int i = numbers.length() - 1; i >= 0; i--) {
-            digits[counter--] = (int) numbers.charAt(i);
+            digits[--counter] = Character.getNumericValue(numbers.charAt(i));
         }
         length = numbers.length();
-        startCount = 40 - length - 1;
+        startCount = counter;
     }
 
     public int[] getDigits() {
@@ -24,9 +24,26 @@ public class HugeInteger {
 
     @Override
     public String toString() {
-        return "HugeInteger {" +
-                "digits=" + Arrays.toString(digits) +
-                '}';
+        StringBuilder build = new StringBuilder();
+        for (int i = getStartCount(); i < digits.length; i++) {
+            build.append(digits[i]);
+        }
+        return build.toString();
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public boolean isZero() {
+        boolean isZero = true;
+        for (int digit : getDigits()) {
+            if (digit != 0) {
+                isZero = false;
+                break;
+            }
+        }
+        return isZero;
     }
 
     public boolean isEqualTo(HugeInteger hugeInteger) {
@@ -41,7 +58,7 @@ public class HugeInteger {
     }
 
     public boolean isNotEqualTo(HugeInteger hugeInteger) {
-        boolean notEqualTo = false;
+        boolean notEqualTo = hugeInteger.getLength() != length;
         for (int i = 0; i < digits.length; i++) {
             if (digits[i] != hugeInteger.getDigits()[i]) {
                 notEqualTo = true;
@@ -49,10 +66,6 @@ public class HugeInteger {
             }
         }
         return notEqualTo;
-    }
-
-    public int getLength() {
-        return length;
     }
 
     public boolean isLessThan(HugeInteger integer) {
@@ -81,10 +94,6 @@ public class HugeInteger {
         return greaterThan;
     }
 
-    private int getStartCount() {
-        return startCount;
-    }
-
     public boolean isGreaterThanOrEqualTo(HugeInteger integer) {
         return isGreaterThan(integer) || isEqualTo(integer);
     }
@@ -95,6 +104,10 @@ public class HugeInteger {
     private void validateInput(String input) {
         String input2 = input.replaceAll("\\D", "");
         if (input2.length() != input.length()) throw new NumberFormatException("Please enter only digits.");
+    }
+
+    private int getStartCount() {
+        return startCount;
     }
 
 }
