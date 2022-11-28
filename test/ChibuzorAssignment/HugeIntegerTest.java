@@ -2,7 +2,6 @@ package ChibuzorAssignment;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class HugeIntegerTest {
@@ -140,4 +139,16 @@ class HugeIntegerTest {
         hugeInteger2.parse("11111");
         assertFalse(hugeInteger2.isGreaterThanOrEqualTo(hugeInteger));
     }
+
+    @Test
+    void testThatAddWorks() {
+        hugeInteger.parse("12345");
+        hugeInteger2.parse("1234");
+        assertEquals("13579", hugeInteger.add(hugeInteger2).toString());
+        hugeInteger2.parse("12349");
+        assertEquals("24694", hugeInteger.add(hugeInteger2).toString());
+        hugeInteger2.parse("234");
+        assertEquals("12579", hugeInteger.add(hugeInteger2).toString());
+    }
+
 }

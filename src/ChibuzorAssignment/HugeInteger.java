@@ -1,12 +1,16 @@
 package ChibuzorAssignment;
 
-import java.util.Arrays;
-
 public class HugeInteger {
 
     private final int[] digits = new int[40];
     private int length;
     private int startCount;
+
+    public HugeInteger() {}
+
+    public HugeInteger(HugeInteger hugeInteger) {
+        this.parse(hugeInteger.toString());
+    }
 
     public void parse(String numbers) {
         validateInput(numbers);
@@ -101,6 +105,33 @@ public class HugeInteger {
     public boolean isLessThanOrEqualTo(HugeInteger integer) {
         return isLessThan(integer) || isEqualTo(integer);
     }
+
+    public HugeInteger add(HugeInteger integer) {
+        HugeInteger hugeInteger = new HugeInteger(this);
+        int carryOver = 0;
+        HugeInteger a = new HugeInteger(hugeInteger);
+        HugeInteger b = new HugeInteger(integer);
+        if (hugeInteger.isLessThan(integer)) {
+            a = integer;
+            b = hugeInteger;
+        }
+
+        for (int i = a.getDigits().length - 1; i >= 0; i--) {
+            int sum = a.getDigits()[i] + b.getDigits()[i] + carryOver;
+            if (sum > 9) {
+                a.getDigits()[i] = sum % 10;
+                carryOver = sum / 10;
+            }
+            else {
+                a.getDigits()[i] = sum;
+                carryOver = 0;
+            }
+        }
+
+        hugeInteger = a;
+        return hugeInteger;
+    }
+
     private void validateInput(String input) {
         String input2 = input.replaceAll("\\D", "");
         if (input2.length() != input.length()) throw new NumberFormatException("Please enter only digits.");
