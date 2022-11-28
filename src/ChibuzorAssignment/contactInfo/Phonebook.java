@@ -26,12 +26,7 @@ public class Phonebook {
     }
 
     public void deleteContact(int contactId) {
-        for (int i = 0; i < contactList.toArray().length; i++) {
-            if (contactList.get(i).getId() == contactId) {
-                contactList.remove(i);
-                break;
-            }
-        }
+        contactList.remove(findContact(contactId));
     }
 
     public void updateContactName(int contactId, String name) {
@@ -55,13 +50,11 @@ public class Phonebook {
         for (int i = 0; i < contactList.toArray().length; i++) {
             if (contactList.get(i).getId() == contactId) {
                 contact = contactList.get(i);
+                break;
             }
         }
         if (contact == null) throw new ContactDoesNotExistException();
         return contact;
     }
 
-    public void delete(int idToDelete) {
-        contactList.remove(findContact(idToDelete));
-    }
 }
