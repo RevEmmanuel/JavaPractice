@@ -6,12 +6,12 @@ public class Diary {
 
     private boolean isLocked;
     private final String password;
-    private final ArrayList<Happening> happeningsList;
+    private final ArrayList<Entry> entries;
 
     public Diary(String ownerName, String password) {
         this.password = password;
         this.isLocked = true;
-        happeningsList = new ArrayList<Happening>();
+        entries = new ArrayList<>();
     }
 
     public boolean isLocked() {
@@ -31,11 +31,17 @@ public class Diary {
     }
 
     public void write(String title, String content) {
-        Happening newHappening = new Happening(title, content);
-        happeningsList.add(newHappening);
+        if (!isLocked) writeIn(title, content);
     }
 
-    public int getNumberOfHappenings() {
-        return happeningsList.size();
+    public int getNumberOfEntries() {
+        return entries.size();
     }
+
+    private void writeIn(String title, String content) {
+        int id = getNumberOfEntries() + 1;
+        Entry aNewEntry = new Entry(id, title, content);
+        entries.add(aNewEntry);
+    }
+
 }

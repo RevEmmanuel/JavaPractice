@@ -49,6 +49,13 @@ public class DiaryTest {
         assertFalse(diary.isLocked());
 
         diary.write("My Break-up With Simi", "I did not do anything to him, he just came back one day and...");
-        assertEquals(1, diary.getNumberOfHappenings());
+        assertEquals(1, diary.getNumberOfEntries());
+    }
+
+    @Test
+    void testThatEntriesCannotBeAddedWhenDiaryIsLocked() {
+        assertTrue(diary.isLocked());
+        diary.write("My Break-up With Simi", "I did not do anything to him, he just came back one day and...");
+        assertEquals(0, diary.getNumberOfEntries());
     }
 }
