@@ -6,7 +6,6 @@ public class HugeInteger {
     private final int[] digits = new int[MAX_LENGTH];
     private int length;
     private int startCount;
-//    private boolean isNegative;
 
     public HugeInteger() {}
 
@@ -151,9 +150,5 @@ public class HugeInteger {
     private int getStartCount() {
         return startCount;
     }
-
-//    private boolean checkNegativity(String number) {
-//
-//    }
 
 }
