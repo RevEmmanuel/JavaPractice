@@ -2,9 +2,11 @@ package ChibuzorAssignment;
 
 public class HugeInteger {
 
-    private final int[] digits = new int[40];
+    private final int MAX_LENGTH = 40;
+    private final int[] digits = new int[MAX_LENGTH];
     private int length;
     private int startCount;
+//    private boolean isNegative;
 
     public HugeInteger() {}
 
@@ -18,8 +20,8 @@ public class HugeInteger {
         for (int i = numbers.length() - 1; i >= 0; i--) {
             digits[--counter] = Character.getNumericValue(numbers.charAt(i));
         }
-        length = numbers.length();
-        startCount = counter;
+        this.length = numbers.length();
+        this.startCount = counter;
     }
 
     public int[] getDigits() {
@@ -73,28 +75,36 @@ public class HugeInteger {
     }
 
     public boolean isLessThan(HugeInteger integer) {
-        boolean lessThan = integer.getLength() > length;
-        if (integer.getLength() == length) {
-            for (int i = integer.getStartCount(); i < digits.length; i++) {
-                if (integer.getDigits()[i] > digits[i]) {
+        boolean lessThan = false;
+        if (integer.getLength() == this.length) {
+            for (int i = 0; i < this.digits.length; i++) {
+                if (this.digits[i] < integer.getDigits()[i]) {
                     lessThan = true;
+                    break;
+                }
+                if (this.digits[i] > integer.getDigits()[i]) {
                     break;
                 }
             }
         }
+        else lessThan = this.length < integer.getLength();
         return lessThan;
     }
 
     public boolean isGreaterThan(HugeInteger integer) {
-        boolean greaterThan = integer.getLength() < length;
-        if (integer.getLength() == length) {
-            for (int i = integer.getStartCount(); i < digits.length; i++) {
-                if (integer.getDigits()[i] < digits[i]) {
+        boolean greaterThan = false;
+        if (integer.getLength() == this.length) {
+            for (int i = 0; i < this.digits.length; i++) {
+                if (integer.getDigits()[i] < this.digits[i]) {
                     greaterThan = true;
+                    break;
+                }
+                if (integer.getDigits()[i] > this.digits[i]) {
                     break;
                 }
             }
         }
+        else greaterThan = integer.getLength() < this.length;
         return greaterThan;
     }
 
@@ -135,10 +145,15 @@ public class HugeInteger {
     private void validateInput(String input) {
         String input2 = input.replaceAll("\\D", "");
         if (input2.length() != input.length()) throw new NumberFormatException("Please enter only digits.");
+        if (input2.length() > MAX_LENGTH) throw new NumberFormatException(String.format("Limit of %s digits exceeded.", MAX_LENGTH));
     }
 
     private int getStartCount() {
         return startCount;
     }
+
+//    private boolean checkNegativity(String number) {
+//
+//    }
 
 }

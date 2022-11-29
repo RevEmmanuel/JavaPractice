@@ -63,12 +63,17 @@ class HugeIntegerTest {
         hugeInteger2.parse("123456789");
         assertTrue(hugeInteger.isGreaterThan(hugeInteger2));
         assertFalse(hugeInteger2.isGreaterThan(hugeInteger));
+
+        hugeInteger.parse("456797777977");
+        hugeInteger2.parse("456777797777");
+        assertTrue(hugeInteger.isGreaterThan(hugeInteger2));
+        assertFalse(hugeInteger2.isGreaterThan(hugeInteger));
     }
 
     @Test
     void testThatLessThanWorksForEqualLength() {
-        hugeInteger.parse("123456789");
-        hugeInteger2.parse("123659789");
+        hugeInteger.parse("456777797777");
+        hugeInteger2.parse("456797777977");
         assertTrue(hugeInteger.isLessThan(hugeInteger2));
         assertFalse(hugeInteger2.isLessThan(hugeInteger));
     }
