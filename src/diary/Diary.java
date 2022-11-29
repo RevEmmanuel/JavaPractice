@@ -1,5 +1,6 @@
 package diary;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Diary {
@@ -7,7 +8,7 @@ public class Diary {
     private boolean isLocked;
     private final String password;
     private final ArrayList<Entry> entries;
-    private String ownerName;
+    private final String ownerName;
 
     public Diary(String ownerName, String password) {
         this.password = password;

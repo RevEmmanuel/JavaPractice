@@ -1,13 +1,17 @@
 package diary;
 
+import javax.swing.*;
 import java.util.Scanner;
 
 public class Maine {
     private static Diary diary;
-    private static final Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
+        begin();
+        displayDiaryMenu();
+    }
 
+    private static void begin() {
         String mainMain = """
                 Welcome to MyDiary!!!
                 Let's set it up.
@@ -17,8 +21,7 @@ public class Maine {
         String userName = input("Enter your username");
         String password = input("Enter your password");
         diary = new Diary(userName, password);
-        print("Diary created for " + diary.getOwnerName());
-        displayDiaryMenu();
+        print("Diary created for " + userName);
     }
 
     private static void displayDiaryMenu() {
@@ -67,7 +70,8 @@ public class Maine {
         else displayUnlockedMenuOptions();
     }
 
-    private static void displayUnlockedMenuOptions() {
+    private static void
+    displayUnlockedMenuOptions() {
         String diaryMenu = """
                 Press 1 --> Create Entry
                 Press 2 --> Find Entry By ID
@@ -85,7 +89,7 @@ public class Maine {
                 case 4 -> lockDiary();
                 default -> {
                     print("Error: " + userInput + "\n" + "Please enter a valid number");
-                    displayDiaryMenu();
+                    displayUnlockedMenuOptions();
                 }
             }
         }
@@ -102,10 +106,11 @@ public class Maine {
     }
 
     private static void findById() {
-        String id = ("Enter the id to find");
+        String id = input("Enter the id to find");
         try {
             Entry foundEntry = diary.findEntryWithId(Integer.parseInt(id));
             print(foundEntry.toString());
+            displayUnlockedMenuOptions();
         }
         catch (NumberFormatException n) {
             print("Error: " + id + "\n" + "Please enter a valid number");
@@ -126,11 +131,15 @@ public class Maine {
     }
 
     private static String input(String prompt) {
+        return JOptionPane.showInputDialog(null, prompt);
+        /*
+        Scanner scanner = new Scanner(System.in);
         print(prompt);
-        return input.nextLine();
+        return scanner.nextLine(); */
     }
 
     private static void print(String input) {
-        System.out.println(input);
+        JOptionPane.showMessageDialog(null, input);
+//        System.out.println(input);
     }
 }

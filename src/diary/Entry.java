@@ -1,6 +1,7 @@
 package diary;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Entry {
     private int id;
@@ -25,5 +26,24 @@ public class Entry {
 
     public String getContent() {
         return content;
+    }
+
+    public String getTimeOfEntry() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        return timeOfEntry.format(formatter);
+    }
+
+    @Override
+    public String toString() {
+        String time = getTimeOfEntry();
+        return String.format("""
+                ==========================================
+                Entry: %s
+                Written on: %s
+                Title: %s
+                Body: %s
+                ==========================================
+                """, id, time, title, content);
     }
 }
