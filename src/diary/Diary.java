@@ -7,10 +7,12 @@ public class Diary {
     private boolean isLocked;
     private final String password;
     private final ArrayList<Entry> entries;
+    private String ownerName;
 
     public Diary(String ownerName, String password) {
         this.password = password;
         this.isLocked = true;
+        this.ownerName = ownerName;
         entries = new ArrayList<>();
     }
 
@@ -31,17 +33,41 @@ public class Diary {
     }
 
     public void write(String title, String content) {
-        if (!isLocked) writeIn(title, content);
+        if (!isLocked) writeIntoDiary(title, content);
     }
 
     public int getNumberOfEntries() {
         return entries.size();
     }
 
-    private void writeIn(String title, String content) {
+    public Entry findEntryWithId(int id) {
+        if (!isLocked) return findId(id);
+        else return null;
+    }
+
+    @Override
+    public String toString() {
+        return "Diary{" +
+                "entries=" + entries +
+                '}';
+    }
+
+    public String getOwnerName() {
+        if (!isLocked) return ownerName;
+        return null;
+    }
+
+    private void writeIntoDiary(String title, String content) {
         int id = getNumberOfEntries() + 1;
         Entry aNewEntry = new Entry(id, title, content);
         entries.add(aNewEntry);
+    }
+
+    private Entry findId(int id) {
+        for (Entry entry : entries) {
+            if (entry.getId() == id) return entry;
+        }
+        return null;
     }
 
 }
