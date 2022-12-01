@@ -53,8 +53,14 @@ public class Phonebook {
                 break;
             }
         }
-        if (contact == null) throw new ContactDoesNotExistException();
+        if (contact == null) throw new ContactDoesNotExistException("Contact not found.");
         return contact;
     }
 
+    @Override
+    public String toString() {
+        return "Phonebook{" +
+                "contactList=" + contactList +
+                '}';
+    }
 }

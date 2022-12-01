@@ -46,4 +46,43 @@ public class Entry {
                 ==========================================
                 """, id, time, title, content);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        try {
+            Entry newObject = (Entry) obj;
+            return checkEquality(newObject);
+        }
+        catch (ClassCastException e) {
+            return false;
+        }
+    }
+
+    private boolean checkEquality(Entry entry) {
+        return (
+                titleEquals(entry.getTitle())
+                && contentEquals(entry.getContent())
+                && idEquals(entry.getId())
+        );
+    }
+
+    private boolean titleEquals(String title) {
+        return title.equals(this.title);
+    }
+
+    private boolean contentEquals(String content) {
+        return content.equals(this.content);
+    }
+
+    private boolean idEquals(int id) {
+        return id == this.id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 }

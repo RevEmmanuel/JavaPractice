@@ -34,6 +34,33 @@ class PhonebookTest {
     }
 
     @Test
+    void testThatContactDoesNotAcceptInvalidEmail() {
+        try {
+            adeola.setEmailAddress("adeolaae1blah");
+        }
+        catch (IllegalArgumentException iae) {
+            System.out.println("Yes, it rejects wrong email address");
+        }
+    }
+
+    @Test
+    void testThatContactDoesNotAcceptInvalidPhoneNumber() {
+        try {
+            raheem.setPhoneNumber("08123");
+        }
+        catch (IllegalArgumentException iae) {
+            System.out.println("Yes, it rejects wrong phone number");
+        }
+
+        try {
+            raheem.setPhoneNumber("081234567sd");
+        }
+        catch (IllegalArgumentException iae) {
+            System.out.println("Yes, it rejects invalid phone number");
+        }
+    }
+
+    @Test
     void canAddNewContact() {
         phoneBook.add(adeola);
         assertEquals(adeola, phoneBook.getContactList().get(0));

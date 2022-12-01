@@ -33,32 +33,16 @@ public class Maine {
                 
                 """;
         String userInput = input(mainMain + "Pick an option");
-        try {
-            switch (Integer.parseInt(userInput)) {
-                case 1 -> unlockDiary();
-                case 2 -> lockDiary();
-                case 3 -> exitApplication();
-                default -> {
-                    print("Error: " + userInput + "\n" + "Please enter a valid number");
-                    displayDiaryMenu();
-                }
+        switch (userInput) {
+            case "1" -> unlockDiary();
+            case "2" -> lockDiary();
+            case "3" -> exitApplication();
+            default -> {
+                print("Error: " + userInput + "\n" + "Please enter a valid number");
+                displayDiaryMenu();
             }
         }
-        catch (NumberFormatException e) {
-            print("Error: " + userInput + "\n" + "Please enter a valid number");
-            displayDiaryMenu();
-        }
-    }
 
-    private static void exitApplication() {
-        print("Thanks for using our application");
-        System.exit(0);
-    }
-
-    private static void lockDiary() {
-        diary.lock();
-        print("Diary has been locked");
-        displayDiaryMenu();
     }
 
     private static void unlockDiary() {
@@ -77,31 +61,35 @@ public class Maine {
                 Press 2 --> Find Entry By ID
                 Press 3 --> Get total number of entries
                 Press 4 --> Lock diary
+                Press 5 --> Delete entry
+                Press 6 --> Update entry info
+                Press 7 --> View all entries
+                Press 9 to go back.
                 
                 """;
 
         String userInput = input(diaryMenu);
-        try {
-            switch (Integer.parseInt(userInput)) {
-                case 1 -> createDiaryEntry();
-                case 2 -> findById();
-                case 3 -> getTotalNumberOfEntries();
-                case 4 -> lockDiary();
-                default -> {
-                    print("Error: " + userInput + "\n" + "Please enter a valid number");
-                    displayUnlockedMenuOptions();
-                }
+        switch (userInput) {
+            case "1" -> createDiaryEntry();
+            case "2" -> findById();
+            case "3" -> getTotalNumberOfEntries();
+            case "4" -> lockDiary();
+            case "5" -> deleteEntry();
+            case "6" -> updateEntry();
+            case "7" -> viewAllEntries();
+            case "9" -> displayDiaryMenu();
+            default -> {
+                print("Error: " + userInput + "\n" + "Please enter a valid number");
+                displayUnlockedMenuOptions();
             }
-        }
-        catch (NumberFormatException n) {
-            print("Error: " + userInput + "\n" + "Please enter a valid number");
-            displayUnlockedMenuOptions();
         }
     }
 
-    private static void getTotalNumberOfEntries() {
-        int totalNumberOfEntries = diary.getNumberOfEntries();
-        print("Total number of entries: " + totalNumberOfEntries);
+    private static void createDiaryEntry() {
+        String title = input("Enter the title of the entry");
+        String content = input("Enter the content of the entry");
+        diary.write(title, content);
+        print("Written successfully!");
         displayUnlockedMenuOptions();
     }
 
@@ -122,12 +110,99 @@ public class Maine {
         }
     }
 
-    private static void createDiaryEntry() {
-        String title = input("Enter the title of the entry");
-        String content = input("Enter the content of the entry");
-        diary.write(title, content);
-        print("Written successfully!");
+    private static void getTotalNumberOfEntries() {
+        int totalNumberOfEntries = diary.getNumberOfEntries();
+        print("Total number of entries: " + totalNumberOfEntries);
         displayUnlockedMenuOptions();
+    }
+
+    private static void deleteEntry() {
+        String id = input("Enter the id of the entry to delete");
+        try {
+            diary.deleteEntry(Integer.parseInt(id));
+        }
+        catch (NumberFormatException n) {
+            print("Please enter  valid id");
+            deleteEntry();
+        }
+        catch (NullPointerException np) {
+            print(np.getMessage());
+            displayUnlockedMenuOptions();
+        }
+    }
+
+    private static void updateEntry() {
+        String choice = input("""
+                Press 1 --> Update entry title
+                Press 2 --> Update entry content
+                Press 9 to go back.
+                """);
+        updates(choice);
+    }
+
+    private static void updates(String switchCase) {
+        switch (switchCase) {
+            case "1" -> updateTitleOfEntry();
+            case "2" -> updateContentOfEntry();
+            case "9" -> displayUnlockedMenuOptions();
+            default -> {
+                print("Invalid input.");
+                updateEntry();
+            }
+        }
+    }
+
+    private static void updateContentOfEntry() {
+        String id = input("Enter the id of entry to update");
+        try {
+            diary.findEntryWithId(Integer.parseInt(id));
+            String content = input("Enter new content: ");
+            diary.findEntryWithId(Integer.parseInt(id)).setContent(content);
+            print("Content updated successfully");
+            displayUnlockedMenuOptions();
+        }
+        catch (NumberFormatException n) {
+            print("Please enter a valid input");
+            updateContentOfEntry();
+        }
+        catch (NullPointerException np) {
+            print(np.getMessage());
+            updateEntry();
+        }
+    }
+
+    private static void updateTitleOfEntry() {
+        String id = input("Enter the id of entry to update");
+        try {
+            diary.findEntryWithId(Integer.parseInt(id));
+            String title = input("Enter new title: ");
+            diary.findEntryWithId(Integer.parseInt(id)).setTitle(title);
+            print("Title updated successfully");
+            displayUnlockedMenuOptions();
+        }
+        catch (NumberFormatException n) {
+            print("Please enter a valid input");
+            updateContentOfEntry();
+        }
+        catch (NullPointerException np) {
+            print(np.getMessage());
+            updateEntry();
+        }
+    }
+
+    private static void viewAllEntries() {
+        print(diary.toString());
+    }
+
+    private static void lockDiary() {
+        diary.lock();
+        print("Diary has been locked");
+        displayDiaryMenu();
+    }
+
+    private static void exitApplication() {
+        print("Thanks for using our application");
+        System.exit(0);
     }
 
     private static String input(String prompt) {
