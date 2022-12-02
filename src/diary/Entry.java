@@ -4,10 +4,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Entry {
-    private int id;
+    private final int id;
     private String title;
     private String content;
-    private LocalDateTime timeOfEntry;
+    private final LocalDateTime timeOfEntry;
 
     public Entry(int id, String title, String content) {
         this.id = id;

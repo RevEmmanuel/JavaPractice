@@ -44,6 +44,14 @@ public class DiaryTest {
     }
 
     @Test
+    void testThatOwnerNameCanBeGottenWhenDiaryIsLocked() {
+        diary.unlockWith("password");
+        assertFalse(diary.isLocked());
+
+        assertEquals("Amirah", diary.getOwnerName());
+    }
+
+    @Test
     void testThatEntriesNumberCanBeGottenWhenDiaryIsUnlocked() {
         diary.unlockWith("password");
         assertFalse(diary.isLocked());

@@ -1,7 +1,6 @@
 package diary;
 
 import javax.swing.*;
-import java.util.Scanner;
 
 public class Maine {
     private static Diary diary;
@@ -207,14 +206,9 @@ public class Maine {
 
     private static String input(String prompt) {
         return JOptionPane.showInputDialog(null, prompt);
-        /*
-        Scanner scanner = new Scanner(System.in);
-        print(prompt);
-        return scanner.nextLine(); */
     }
 
     private static void print(String output) {
         JOptionPane.showMessageDialog(null, output);
-//        System.out.println(input);
     }
 }
