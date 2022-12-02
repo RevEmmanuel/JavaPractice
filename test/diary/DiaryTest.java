@@ -78,8 +78,14 @@ public class DiaryTest {
     void testThatEntriesCannotBeAddedWhenDiaryIsLocked() {
         assertTrue(diary.isLocked());
 
-        diary.write("My Break-up With Simi", "I did not do anything to him, he just came back one day and...");
+        assertThrows(Exception.class, () -> diary.write("Simex pes god", "Simi cannot play pes"));
         assertEquals(0, diary.getNumberOfEntries());
+    }
+
+    @Test
+    void testThatWritingToLockedDiaryThrowsException() {
+        assertTrue(diary.isLocked());
+        assertThrows(IllegalArgumentException.class, () -> diary.write("Simex pes god", "Simi cannot play pes"));
     }
 
     @Test

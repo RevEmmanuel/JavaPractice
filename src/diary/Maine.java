@@ -213,8 +213,8 @@ public class Maine {
         return scanner.nextLine(); */
     }
 
-    private static void print(String input) {
-        JOptionPane.showMessageDialog(null, input);
+    private static void print(String output) {
+        JOptionPane.showMessageDialog(null, output);
 //        System.out.println(input);
     }
 }

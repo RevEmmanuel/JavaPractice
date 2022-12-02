@@ -35,7 +35,8 @@ public class Diary {
     }
 
     public void write(String title, String content) {
-        if (!isLocked) writeIntoDiary(title, content);
+        if (isLocked) throw new IllegalArgumentException("Cannot write into locked diary");
+        writeIntoDiary(title, content);
     }
 
     public int getNumberOfEntries() {
