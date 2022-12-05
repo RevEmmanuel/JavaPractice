@@ -9,4 +9,10 @@ public class ContactDoesNotExistException extends RuntimeException{
     public ContactDoesNotExistException() {
         this("Contact does not exist");
     }
+
+    public ContactDoesNotExistException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public ContactDoesNotExistException(Throwable cause) {super(cause);}
 }
