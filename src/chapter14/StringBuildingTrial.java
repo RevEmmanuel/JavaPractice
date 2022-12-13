@@ -8,10 +8,10 @@ public class StringBuildingTrial {
         System.out.printf("Content: %s%nLength: %d%nCapacity: %d%n", builder, builder.length(), builder.capacity());
 
         builder.ensureCapacity(75);
-        System.out.println("New capacity is " + builder.capacity());
+        System.out.println("New capacity is: " + builder.capacity());
         builder.ensureCapacity(100);
-        System.out.println("New capacity is " + builder.capacity());
+        System.out.println("New capacity is: " + builder.capacity());
         builder.setLength(20);
-        System.out.println("New content is " + builder);
+        System.out.println("New content is: " + builder);
     }
 }
