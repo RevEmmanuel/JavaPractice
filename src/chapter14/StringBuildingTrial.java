@@ -13,5 +13,7 @@ public class StringBuildingTrial {
         System.out.println("New capacity is: " + builder.capacity());
         builder.setLength(20);
         System.out.println("New content is: " + builder);
+
+        builder.append(System.getProperty(System.lineSeparator()));
     }
 }
