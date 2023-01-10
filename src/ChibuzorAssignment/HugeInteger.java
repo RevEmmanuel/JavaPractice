@@ -7,19 +7,24 @@ public class HugeInteger {
     private int length;
     private int startCount;
 
+    private boolean isNegative;
+
     public HugeInteger() {}
 
     public HugeInteger(HugeInteger hugeInteger) {
         this.parse(hugeInteger.toString());
+        if (hugeInteger.isNegative) this.isNegative = true;
     }
 
     public void parse(String numbers) {
         validateInput(numbers);
         int counter = 40;
         for (int i = numbers.length() - 1; i >= 0; i--) {
+            if (numbers.charAt(i) == '-') break;
             digits[--counter] = Character.getNumericValue(numbers.charAt(i));
         }
-        this.length = numbers.length();
+        if (isNegative) this.length = numbers.length() - 1;
+        else this.length = numbers.length();
         this.startCount = counter;
     }
 
@@ -33,7 +38,7 @@ public class HugeInteger {
         for (int i = getStartCount(); i < digits.length; i++) {
             build.append(digits[i]);
         }
-        return build.toString();
+        return (isNegative ? "-" + build : build.toString());
     }
 
     public int getLength() {
@@ -59,6 +64,7 @@ public class HugeInteger {
                 break;
             }
         }
+        if (this.isNegative != hugeInteger.isNegative) equalTo = false;
         return equalTo;
     }
 
@@ -70,10 +76,18 @@ public class HugeInteger {
                 break;
             }
         }
+        if (this.isNegative != hugeInteger.isNegative) notEqualTo = true;
         return notEqualTo;
     }
 
     public boolean isLessThan(HugeInteger integer) {
+        if (!this.isNegative && !integer.isItNegative()) return isLessThanTwoPositive(integer);
+        if (this.isNegative && integer.isItNegative()) return !isLessThanTwoPositive(integer);
+        if ((!this.isNegative && integer.isItNegative()) || (this.isNegative) && !integer.isItNegative()) return !isLessThanTwoPositive(integer);
+        return false;
+    }
+
+    public boolean isLessThanTwoPositive(HugeInteger integer) {
         boolean lessThan = false;
         if (integer.getLength() == this.length) {
             for (int i = 0; i < this.digits.length; i++) {
@@ -91,6 +105,13 @@ public class HugeInteger {
     }
 
     public boolean isGreaterThan(HugeInteger integer) {
+        if (!this.isNegative && !integer.isItNegative()) return isGreaterThanTwoPositive(integer);
+        if (this.isNegative && integer.isItNegative()) return !isGreaterThanTwoPositive(integer);
+        if ((!this.isNegative && integer.isItNegative()) || (this.isNegative) && !integer.isItNegative()) return !isLessThanTwoPositive(integer);
+        return false;
+    }
+
+    private boolean isGreaterThanTwoPositive(HugeInteger integer) {
         boolean greaterThan = false;
         if (integer.getLength() == this.length) {
             for (int i = 0; i < this.digits.length; i++) {
@@ -116,15 +137,29 @@ public class HugeInteger {
     }
 
     public HugeInteger add(HugeInteger integer) {
+        if (!this.isNegative && !integer.isItNegative()) return addNoNegative(integer);
+        if (this.isNegative && integer.isItNegative()) return addTwoNegative(integer);
+        if ((!this.isNegative && integer.isItNegative()) || (this.isNegative) && !integer.isItNegative()) return addTwoNegative(integer);
+        return null;
+    }
+
+    private HugeInteger addTwoNegative(HugeInteger integer) {
         HugeInteger hugeInteger = new HugeInteger(this);
         int carryOver = 0;
         HugeInteger a = new HugeInteger(hugeInteger);
         HugeInteger b = new HugeInteger(integer);
-        if (hugeInteger.isLessThan(integer)) {
+        if (!hugeInteger.isLessThan(integer)) {
             a = integer;
             b = hugeInteger;
         }
 
+        hugeInteger = getHugeIntegerAddition(carryOver, a, b);
+        hugeInteger.isNegative = true;
+        return hugeInteger;
+    }
+
+    private HugeInteger getHugeIntegerAddition(int carryOver, HugeInteger a, HugeInteger b) {
+        HugeInteger hugeInteger;
         for (int i = a.getDigits().length - 1; i >= 0; i--) {
             int sum = a.getDigits()[i] + b.getDigits()[i] + carryOver;
             if (sum > 9) {
@@ -141,14 +176,44 @@ public class HugeInteger {
         return hugeInteger;
     }
 
+    private HugeInteger addOneNegative(HugeInteger integer) {
+//        HugeInteger result = subtractOneNegative(integer);
+        return integer;
+    }
+
+    private HugeInteger addNoNegative(HugeInteger integer) {
+        HugeInteger hugeInteger = new HugeInteger(this);
+        int carryOver = 0;
+        HugeInteger a = new HugeInteger(hugeInteger);
+        HugeInteger b = new HugeInteger(integer);
+        if (hugeInteger.isLessThan(integer)) {
+            a = integer;
+            b = hugeInteger;
+        }
+
+        hugeInteger = getHugeIntegerAddition(carryOver, a, b);
+        return hugeInteger;
+    }
+
     private void validateInput(String input) {
+        isNegative = isNegative(input);
         String input2 = input.replaceAll("\\D", "");
-        if (input2.length() != input.length()) throw new NumberFormatException("Please enter only digits.");
+//        input.replaceAll("\\D", "");
+        if (!isNegative(input) && input2.length() != input.length()) throw new NumberFormatException("Please enter only digits.");
+        if (isNegative(input) && input2.length()!= input.length() - 1) throw new NumberFormatException("Please enter only digits.");
         if (input2.length() > MAX_LENGTH) throw new NumberFormatException(String.format("Limit of %s digits exceeded.", MAX_LENGTH));
     }
 
     private int getStartCount() {
         return startCount;
+    }
+
+    private boolean isNegative(String input) {
+        return input.startsWith("-");
+    }
+
+    public boolean isItNegative() {
+        return this.isNegative;
     }
 
 }

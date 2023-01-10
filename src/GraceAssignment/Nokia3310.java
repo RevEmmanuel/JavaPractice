@@ -20,8 +20,9 @@ public class Nokia3310 {
 
     public static void mainMenu() {
         System.out.println("+------------------------------+");
-        System.out.println("|        GOD ABEG  3310        |");
-        System.out.printf("|        Welcome %s!       |%n", getName());
+//        System.out.println("|        GOD ABEG  3310        |");
+        System.out.println("|        NOKIA  3310           |");
+        System.out.printf("|        Welcome %s!       |%n", "User");
         System.out.println("|                              |");
         System.out.println("+------------------------------+");
 
@@ -662,9 +663,9 @@ public class Nokia3310 {
 
 
     public static void execute() {
-        System.out.print("Enter your name to proceed: ");
-        String user = input.next();
-        Nokia3310.setName(user);
+//        System.out.print("Enter your name to proceed: ");
+//        String user = input.next();
+//        Nokia3310.setName(user);
 
         for (int i = 1; i <= 5; i++) {
             System.out.println("Press 1 for main menu or 99 to terminate.");

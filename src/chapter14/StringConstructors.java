@@ -17,5 +17,10 @@ public class StringConstructors {
                 s4 = %s
                 """, s1, s2, s3, s4);
 
+        String input = "-123fgjf";
+
+        String input2 = input.replaceAll("[^-\\d]", "");
+        System.out.println(input2);
+
     }
 }
