@@ -1,4 +1,4 @@
-package chapter16;
+package chapter16.cards;
 
 import chapter16.cards.DeckOfCard;
 
