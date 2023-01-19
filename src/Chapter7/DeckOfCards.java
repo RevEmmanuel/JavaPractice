@@ -9,7 +9,7 @@ public class DeckOfCards {
     private static final int NUMBER_OF_CARDS = 52; // constant number of cards
 
     private Card[] deck = new Card[NUMBER_OF_CARDS]; // previous card class reference
-    private int currentCard = 0; // index of next Card to be dealt (0-51). index is the position inside array
+    private int currentCard = 0; // index of next cards.Card to be dealt (0-51). index is the position inside array
 
     // constructor does not contain any parameters
     public DeckOfCards() {

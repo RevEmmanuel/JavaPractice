@@ -1,7 +1,7 @@
 package Chapter7;
 
 public class Card {
-    // Card class represents a playing card
+    // cards.Card class represents a playing card
     private String face; // face can be Ace, King, Queen, etc
     private String suit; // suit can be Spades, Clubs, Diamond or Hearts
 
