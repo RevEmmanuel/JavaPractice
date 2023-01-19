@@ -1,5 +1,8 @@
 package chapter14;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class StringMiscellaneous {
 
     public static void main(String[] args) {
@@ -17,5 +20,17 @@ public class StringMiscellaneous {
 
         greeting.getChars(7, 10, charArray, 3);
         System.out.println(charArray);
+
+        Pattern pattern = Pattern.compile("Java SE");
+        Matcher matcher = pattern.matcher("Java SE");
+        System.out.println(matcher.matches());
+
+        pattern = Pattern.compile("[a-z A-Z]*");
+        matcher = pattern.matcher("Endangered species will likely end up dead");
+        System.out.println(matcher.matches());
+
+        pattern = Pattern.compile("[eE].+?d");
+        matcher = pattern.matcher("Endangered species will likely end up dead");
+        while (matcher.find()) System.out.println("matched -> " + matcher.group());
     }
 }
