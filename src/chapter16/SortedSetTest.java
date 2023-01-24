@@ -11,8 +11,10 @@ public class SortedSetTest {
         System.out.println("Sorted set: ");
         printSet(colorSet);
 
-
         System.out.println("Head to orange: " + colorSet.headSet("orange"));
+        colorSet.headSet("orange").add("blue");
+        System.out.println("Head to orange: " + colorSet.headSet("orange"));
+        printSet(colorSet);
         System.out.println("Orange to tail: " + colorSet.tailSet("orange"));
         System.out.println("First: " + colorSet.first());
         System.out.println("Last: " + colorSet.last());
