@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Java EE 6-Java EE 6 (9)">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/javax.transaction.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
